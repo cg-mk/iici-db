@@ -9,9 +9,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Primers</title>
-        <style>
+        <link href="iici_db.css" rel="stylesheet" type="text/css">
+        <!-- style>
             /*[type=button],[type=submit]{
                 height: 75px;
                 width: 150px;
@@ -181,7 +183,7 @@
                 position:fixed;
                 bottom:0;
             }
-        </style>
+        </style -->
         <script>
             window.onerror=function(a,b,c){
                 alert('javascript error:\n'+a+'\nPath:'+b+'\nLine: ' + c);
@@ -310,7 +312,7 @@
                     //alert('cancel');
                     document.getElementById('editprdiv').style.display = 'none';
                     document.getElementById('prmask').style.display = 'none';
-                }
+                };
             }
              function searchBtnClk() { // new button click event
                 clearFields();
@@ -325,7 +327,7 @@
                     //alert('cancel');
                     document.getElementById('editprdiv').style.display = 'none';
                     document.getElementById('prmask').style.display = 'none';
-                }
+                };
             }
             function clearFields() {
                 document.getElementById('hdnDel').value = '';
@@ -341,8 +343,8 @@
         
         <h1>Primers</h1>
         
-        <div id="wraptable">
-            <table id="thead">
+        <div id="wraptable" class="tblwrap">
+            <table id="thead" class="thd">
                 <tr>
                     <th>Primer Name</th>
                     <th>Sequence</th>
@@ -351,8 +353,8 @@
                 </tr>
             </table>
             
-            <div id="wraptbody">
-                <table id="tbody">
+            <div id="wraptbody" class="tbdy">
+                <table id="tbody" class="prtbl">
                     <c:forEach var="p" items="${primers}">
                     <tr>
                         <td>${p.primerID}</td>
@@ -366,13 +368,24 @@
                     </c:forEach>
                 </table>
             </div>
-            <a class="button"  href="page1.jsp">Return to Main Menu</a>
+            <!--a class="button"  href="page1.jsp">Return to Main Menu</a -->
             <input type="button" value="New" id="btnNew" name="btnNew">
             <input type="button" value="Search" id="btnSrch">
+            <br class="clrfix">
+            <div id="nav">
+                <a class="button"  href="page1.jsp">Home</a>
+                <a class="button"  href="logon.jsp">Logon</a>
+                <a class="button"  href="Plasmid">Plasmids</a>
+                <a class="button"  href="Primer">Primers</a>
+                <a class="button"  href="Sequence">Sequence</a>
+                <a class="button"  href="Protocol">Protocols</a>
+                <a class="button"  href="Chore">Chores</a>
+                <a class="button"  href="People">IICI Database Users</a>
+            </div>    
         </div>
         
         <form id="hiddenform" method="post" action="Primer">
-            <div id="prmask">
+            <div id="prmask" class="mask">
                 <div id="editprdiv">
                     <h2 id="prtitle">Edit Primer</h2>
                     <table id="predit">
@@ -393,9 +406,10 @@
                     <input type="hidden" value="" id="hdnSearch" name="hdnSearch">
                 </div>
             </div>
-            
         </form>
-            <h4 id="btnmsg">${msg} ${btnmsg}</h4>
-            <p style="text-align: center"> ${cntmsg} </p>
+        
+        <h4 class="msgctr" id="btnmsg">${msg} ${btnmsg}</h4><br>
+        <p class="msgctr" style="text-align: center"> ${cntmsg} </p>
+        
     </body>
 </html>

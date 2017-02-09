@@ -8,11 +8,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>IICIdb_Page1</title>
+        <link href="iici_db.css" rel="stylesheet" type="text/css">
         <style>
-            #btndiv {
+        /*    #btndiv {
                 width: 30%;
                 min-width: 300px;
                 margin: 0 auto;
@@ -86,7 +87,7 @@
                 margin: 0 auto; 
                 width: auto; 
                 text-align: center;
-            }
+            }*/
         </style>
     </head>
     <body>
@@ -94,15 +95,18 @@
         
        <!-- <form id='f' action="Primer" method="post"> -->
             <div id="btndiv" class="d1">
-              <!--  <input type="submit" value="Primers" name="pbtn" id="btnPrimer"> -->
-                <a href="Primer" class="btn1">Primers</a> 
-                <!-- <input type="button" value="Plasmids" id="btnPlsmid" -->
-                <a href="Plasmid" class="btn2">Plasmids</a>
-                <!--<input type="button" value="Sequences" id="btnSeq"> -->
-                <a href="chores.jsp" class="btn1">Lab Chores</a>
-                <input type="button" value="Protocols" id="btnBlot">
-                <input type="button" value="qPCR" id="btnQPCR" disabled>
-                <input type="button" value="Blots" id="btnProtocol" disabled>
+            <!--  <input type="submit" value="Primers" name="pbtn" id="btnPrimer"> -->
+            <a href="Primer" class="btn1">Primers</a> 
+            <!-- <input type="button" value="Plasmids" id="btnPlsmid" -->
+            <a href="Plasmid" class="btn2">Plasmids</a>
+            <!--<input type="button" value="Sequences" id="btnSeq"> -->
+            <a href="Sequence" class="btn1">Sequences</a>
+            <!-- input type="button" value="Sequence" id="btnQPCR" disabled -->
+            <a href="Protocol" class="btn2">Protocols</a>
+            <!-- input type="button" value="Protocols" id="btnBlot" -->
+            <a href="Chore" class="btn1">Lab Chores</a>
+            <!-- input type="button" value="Blots" id="btnProtocol" disabled -->
+            <a href="People" class="btn2">Users</a>
             </div>
        <!-- </form> -->
     </body>

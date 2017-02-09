@@ -9,9 +9,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Plasmids</title>
-        <style>
+        <link href="iici_db.css" rel="stylesheet" type="text/css">
+        <!-- style>
             body{
                 background-color: #d2b48c;
             }
@@ -47,7 +49,7 @@
                 min-width:100px;
             }
             th:nth-child(5){
-                //width: 60%;
+                /*width: 60%;*/
                 min-width: 100px;
             } 
             th:nth-child(6){
@@ -60,22 +62,22 @@
                 min-width:100px;
                 border-left: none;
             }
-            #tblhead{
+            #tblhead {
                 width: 100%;
                 border-collapse: collapse;
                 border: 2px solid #555;
                 border-bottom: none;
             }
-            #wraptbody{
+            #wraptbody {
                 height: 200px;
                 overflow-y: auto;
             }
-            #plasmidtbl{
+            #plasmidtbl {
                 width: 100%;
                 border-collapse: collapse;
                 border: 2px solid #555;
             }
-            plasmidtbl.edbtn{
+            plasmidtbl.edbtn {
                 margin: 1px 1px;
                 float: right;
             }
@@ -104,7 +106,7 @@
                 min-width: 100px;
             }
             td:nth-child(5){
-                //width: 60%;
+                /*width: 60%;*/
                 min-width: 100px;
             }
             td:nth-child(6){
@@ -217,7 +219,7 @@
                 position:fixed;
                 bottom:50px;
             }
-        </style>
+        </style -->
         <script>
             window.onerror=function(a,b,c){
                 alert('javascript error:\n'+a+'\nPath:'+b+'\nLine: ' + c);
@@ -389,7 +391,7 @@
                     alert('submitting form...');
                 }
             }//End validate
-            function searchBtnClk() { // new button click event
+            function searchBtnClk() { // search button click event
                 //alert('srchBtnClk');
                 clearFields();
                 document.getElementById('hdnCmd2').value = 'SEARCH'; // set hidden field
@@ -441,8 +443,8 @@
     
     <body>
         <h1>Plasmids</h1>
-            <div id="tblwrap">
-                <table id="tblhead">
+            <div id="tblwrap" class="tblwrap">
+                <table id="tblhead" class="tblhd">
                     <tr>
                         <th>Plasmid Number</th>
                         <th>Binary?</th>
@@ -458,8 +460,8 @@
                     </tr>
                     
                 </table>
-                <div id="wraptbody">
-                <table id="plasmidtbl">
+                <div id="wraptbody" class="tbdy">
+                <table id="plasmidtbl" class="pltbl">
                     <c:forEach var="pl" items="${plasmids}">
                     <tr>
                         <td>${pl.plasmidID}</td>
@@ -482,12 +484,23 @@
                     </c:forEach>
                 </table>
             </div>
-                <a class="button"  href="page1.jsp">Return to Main Menu</a>
+                <!--a class="button"  href="page1.jsp">Return to Main Menu</a -->
                 <input type="button" value="New" id="btnNew" name="btnNew">
                 <input type="button" value="Search" id="btnSrch">
+                <br class="clrfix">
+            <div id="nav">
+                <a class="button"  href="page1.jsp">Home</a>
+                <a class="button"  href="logon.jsp">Logon</a>
+                <a class="button"  href="Plasmid">Plasmids</a>
+                <a class="button"  href="Primer">Primers</a>
+                <a class="button"  href="Sequence">Sequence</a>
+                <a class="button"  href="Protocol">Protocols</a>
+                <a class="button"  href="Chore">Chores</a>
+                <a class="button"  href="People">IICI Database Users</a>
+            </div>
             </div>
             <form id="hdnplfrm" method="post" action="Plasmid">
-                <div id="plasmidmask">
+                <div id="plasmidmask" class="mask">
                     <div id="editpldiv">
                         <h2 id="pltitle">Edit Plasmid</h2>
                         Plasmid Number:
@@ -604,7 +617,7 @@
                 </div>
         </form>
         <form id="hdnfrm2" method="post" action="Plasmid">
-                <div id="plasmidmask2">
+            <div id="plasmidmask2" class="mask2">
                     <div id="editpldiv2">
                         <h2 id="pltitle2">Search Plasmids</h2>
                         Plasmid Number:
@@ -805,8 +818,12 @@
                     </div>
                 </div>
         </form>
-            <p id="cntmsg"> ${cntmsg} </p>
-            <p id="msg"> ${msg} </p>
+        <%--
+        <p id="cntmsg" class="msgctr"> ${cntmsg} </p>
+        <p id="msg"> ${msg} </p>
+        --%>
+        <h4 class="msgctr" id="btnmsg">${msg} ${btnmsg}</h4><br>
+        <p class="msgctr" style="text-align: center"> ${cntmsg} </p>
+        
     </body>
-    
 </html>

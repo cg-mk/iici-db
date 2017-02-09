@@ -6,6 +6,7 @@
 package servlets;
 
 import business.Primer;
+import business.PrimerDAO;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.RequestDispatcher;
@@ -35,9 +37,11 @@ public class PrimerServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        PrimerDAO prd = new PrimerDAO();
         String msg = "";
         String sql = "";
         String URL = "/primers.jsp";
@@ -46,7 +50,7 @@ public class PrimerServlet extends HttpServlet {
         PreparedStatement ps = null;
         ResultSet r;
         Primer p;
-        ArrayList<Primer> primers = new ArrayList<Primer>();
+        List<Primer> primers = new ArrayList();
          
         String subm = request.getParameter("btnSubmit");
         String dbtn = request.getParameter("hdnDel");
@@ -108,102 +112,25 @@ public class PrimerServlet extends HttpServlet {
             if(prdesc.isEmpty()){
                 msg += "Validation failed: blank description.<br>";
             }
-        }
+       }
         
-        try {
-            String dbURL = "jdbc:mysql://localhost:3306/iici_db";
-            String dbUser = "root";
-            String dbPwd = "sesame";
-            
-            conn = DriverManager.getConnection(dbURL, dbUser, dbPwd);
-   
-            if (msg.isEmpty()){ // if validation was success and produced no msgs
-                
                 if (cmd.equalsIgnoreCase("UPDATE")){
-                    sql = cmd + " primers SET primer_seq = ?, primer_desc = ? ";
-                    sql += "WHERE primer_num = ?";
-                    ps = conn.prepareStatement(sql);
-
-                    ps.setString(1, seq);
-                    ps.setString(2, prdesc);
-                    ps.setInt(3, iprid);
-                    ps.executeUpdate();
-
+                    prd.updatePrimers(seq, prdesc, iprid);
+                
                 }else if(cmd.equalsIgnoreCase("INSERT")){
-                    sql = cmd + " INTO primers (primer_seq, primer_desc) VALUES (?,?)";
-                    ps = conn.prepareStatement(sql);
-                    //primers table uses auto_increment
-                    //primer_seq int PRIMARY KEY AUTO_INCREMENT
-                    ps.setString(1, seq);
-                    ps.setString(2, prdesc);
-                    ps.execute();
-                    
+                    prd.addPrimers(iprid, seq, prdesc);
+                
                 }else if(cmd.equalsIgnoreCase("DELETE")){
-                    sql = cmd + " FROM primers WHERE primer_num = ?";
-                    ps = conn.prepareStatement(sql);
-                    ps.setInt(1, iprid);
-                    ps.execute();
-                    
+                    prd.deletePrimers(iprid, seq, prdesc);
+
                 } else if(cmd.equalsIgnoreCase("SEARCH")) {
-                    sql = "SELECT * FROM primers WHERE ";
-                    if(iprid > 0) {
-                        sql += "primer_num = ? AND ";
-                    }
-                    if (seq.length() > 0) {
-                        sql += "primer_seq LIKE ? AND ";
-                    }
-                    if (prdesc.length() >0) {
-                        sql += "primer_desc LIKE ? AND ";
-                    }
-                    sql += "1=1 ORDER BY primer_num";
-                    ps = conn.prepareStatement(sql);
-                    int param = 1;
-                    
-                    if(iprid > 0) {
-                        ps.setInt(param, iprid);
-                        param++;
-                    }
-                    if (seq.length() > 0) {
-                        ps.setString(param,"%"+seq+"%");
-                        param++;
-                    }
-                    if (prdesc.length() > 0) {
-                        ps.setString(param, "%"+prdesc+"%");
-                        param++;
-                    }
+                    prd.findPrimers(iprid, seq, prdesc);
                 }
-            }
-            
-            if (sbtn.isEmpty()) { // IF NOT SEARCH
-                s = conn.createStatement();
-                sql = "SELECT * FROM primers ORDER BY primer_num";
-                r = s.executeQuery(sql);
-                while (r.next()) {
-                    p = new Primer();
-                    p.setPrimerID(r.getInt("primer_num"));
-                    p.setSequence(r.getString("primer_seq"));
-                    p.setPrDesc(r.getString("primer_desc"));
-
-                    primers.add(p);
-                }
-               // cntmsg = primers.size() + " primers returned from this query.";
-                s.close();
-                r.close();
+        
+           if (sbtn.isEmpty()) { // IF NOT SEARCH
+                primers = prd.getAllPrimers();
             } else {
-              
-                ps.execute();
-                r = ps.getResultSet();
-                while (r.next()) {
-                    p = new Primer();
-                    p.setPrimerID(r.getInt("primer_num"));
-                    p.setSequence(r.getString("primer_seq"));
-                    p.setPrDesc(r.getString("primer_desc"));
-
-                    primers.add(p);
-                    //msg += p.toString();
-                }
-                ps.close();
-                r.close(); 
+                primers = prd.getAllPrimersByPS();
             }
             
             cntmsg = primers.size() + " primers returned from this query.";
@@ -212,21 +139,14 @@ public class PrimerServlet extends HttpServlet {
                 URL = "/primers.jsp";
                 request.setAttribute("primers", primers);
             }
-    } catch(SQLException e) {
-        msg += "SQL problems getting primer: " + e.getMessage() + "<br>";
-    } catch (Exception e) {
-        msg += "Problems creating primer list: " + e.getMessage() + "<br>";
-    }
-        
         request.setAttribute("msg", msg);
-        //request.setAttribute("btnmsg", btnmsg);
         request.setAttribute("cntmsg", cntmsg);
         RequestDispatcher disp = getServletContext().getRequestDispatcher(URL);
         disp.forward(request, response);
         
 }
     
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

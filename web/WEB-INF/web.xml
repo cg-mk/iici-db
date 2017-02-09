@@ -8,6 +8,30 @@
         <servlet-name>PlasmidServlet</servlet-name>
         <servlet-class>servlets.PlasmidServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SequenceServlet</servlet-name>
+        <servlet-class>servlets.SequenceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SequenceUploadServlet</servlet-name>
+        <servlet-class>servlets.SequenceUploadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChoreServlet</servlet-name>
+        <servlet-class>servlets.ChoreServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProtocolServlet</servlet-name>
+        <servlet-class>servlets.ProtocolServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProtocolUploadServlet</servlet-name>
+        <servlet-class>servlets.ProtocolUploadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PeopleServlet</servlet-name>
+        <servlet-class>servlets.PeopleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PrimerServlet</servlet-name>
         <url-pattern>/Primer</url-pattern>
@@ -15,6 +39,30 @@
     <servlet-mapping>
         <servlet-name>PlasmidServlet</servlet-name>
         <url-pattern>/Plasmid</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChoreServlet</servlet-name>
+        <url-pattern>/Chore</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SequenceServlet</servlet-name>
+        <url-pattern>/Sequence</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SequenceUploadServlet</servlet-name>
+        <url-pattern>/SequenceUpload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProtocolServlet</servlet-name>
+        <url-pattern>/Protocol</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProtocolUploadServlet</servlet-name>
+        <url-pattern>/ProtocolUpload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PeopleServlet</servlet-name>
+        <url-pattern>/People</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
