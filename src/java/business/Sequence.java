@@ -63,6 +63,8 @@ public class Sequence {
             s = s.replace("&", "&amp;");
             s = s.replace(">", "&gt;");
             s = s.replace("<", "&lt;");
+            s = s.replace("'", "?");
+            s = s.replace("\"", "?");
             return s;
         }else{
             return "";

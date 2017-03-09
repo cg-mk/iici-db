@@ -69,7 +69,7 @@ public class ChoreServlet extends HttpServlet {
                 request.getSession().setAttribute("choreMode", "Cleanup");
                
             }else{
-                msg += "Error: missing choreMode";
+                msg += "Error: missing choreMode -- Weekly or Cleanup";
             }
             
             people = perd.getAllPeople();
@@ -134,30 +134,81 @@ public class ChoreServlet extends HttpServlet {
                 // get assignments
                 ArrayList<Assignment> a = (ArrayList<Assignment>)request.getSession().getAttribute("assign");
                 int len = a.size();
-                // write assignments to database
+                // write assignments to database with todays date?
                 
+                ???
+  
+                msg += "Need code to write the assignments to database";
                 
             }else if (btn.equalsIgnoreCase("RE-DO")){
                 // re-do assignments
                 msg += attachPeople(request);
                 msg += attachChores(request);
                 display = "2";
-                
-            }else if (btn.equalsIgnoreCase("CANCEL")){
-                display = "1";
+             
                 
             }else{
                 msg += "unknown button seen.";
             }
             
-        } else if (formname.equalsIgnoreCase("form4")) {
-            msg += "I need to code assigned-chores form4 handler here.";
+        } else if (formname.equalsIgnoreCase("form4")) {// delete chore
             
-        }else if (formname.equalsIgnoreCase("form5")) {
-            msg += "I need to code add-edit-chores form5 handler here.";
+            String chid = request.getParameter("chrId");
+           
+            if ( chid != null && !chid.isEmpty()){
+                try{
+                    int ichid = Integer.parseInt(chid);
+                    // delete chore
+                    // public void deleteChores(int ichid, int ictype, String chdesc)
+                    
+                    chd.deleteChores(ichid, 0, "");
+                    msg += chd.getMsg();
+                }catch(NumberFormatException e){
+                    msg += "Error deleting chore id = ["+ chid +"]";
+                }
+                
+            }else{
+                msg += "Error deleting chore id = ["+ chid +"]";
+            }
+        }else if (formname.equalsIgnoreCase("form5")) { // add or edit chore
+            String chid = request.getParameter("chrId");
+            String chtype = request.getParameter("chrType");
+            String chdesc = request.getParameter("chrDesc");
+            int ichid = 0;
+            int ichtype = -1;
+            try{
+                ichtype = Integer.parseInt(chtype);
+                ichid = Integer.parseInt(chid);
+            }catch(NumberFormatException e){
+                // ignore
+            }
+            if (ichtype != 1 && ichtype != 2){
+                 msg += "Error adding chore type=[" + chtype + "] desc=[" + chdesc + "] id=[" + chid +"]";
+            }else if (chdesc == null || chdesc.trim().isEmpty()){
+                 msg += "Error adding chore type=[" + chtype + "] desc=[" + chdesc + "] id=[" + chid +"]";
+            }else{
+                if (ichid > 0){// if core exists
+                    // update
+                    //public void updateChores(int ichid, int ictype, String chdesc)
+                    chd.updateChores(ichid, ichtype, chdesc.trim());
+                    
+                    msg += chd.getMsg();
+                    
+                }else{// new chore
+                    // insert
+                    //public void addChores(int ichid, int ictype, String chdesc) 
+                    chd.addChores(ichid, ichtype, chdesc.trim());
+                    
+                    msg += chd.getMsg();                   
+                }
+            }
             
-        }else if (formname.equalsIgnoreCase("form6")) {
-            msg += "I need to code find-chores form6 handler here.";
+        }else if (formname.equalsIgnoreCase("form6")) { // search
+            String chdesc = request.getParameter("chrDesc");
+            msg += "Need form6 handler here. desc=" + chdesc;;
+            
+            // search for chores
+            //public void findChores(Integer ichid, Integer ictype, String taskDesc)
             
         }
     

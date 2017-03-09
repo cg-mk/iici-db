@@ -50,6 +50,20 @@ public class Protocol {
         return protData;
     }
     
+    public String getSafeProtData() {
+        if(this.protData != null && this.protData.length() > 0){
+            String s = protData;
+            s = s.replace("&", "&amp;");
+            s = s.replace(">", "&gt;");
+            s = s.replace("<", "&lt;");
+            s = s.replace("'", "?");
+            s = s.replace("\"", "?");
+            return s;
+        }else{
+            return "";
+        }
+    }
+    
     public void setProtData(String protData) {
         this.protData = protData;
     }

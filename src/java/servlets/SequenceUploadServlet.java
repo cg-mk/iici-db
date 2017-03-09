@@ -102,7 +102,7 @@ public class SequenceUploadServlet extends HttpServlet {
             }
         } catch (Exception e) {
             msg += "Error: " + e.getMessage();
-            URL = "/Error.jsp";
+            URL = "/error.jsp";
         }
                 
         request.setAttribute("msg", msg);

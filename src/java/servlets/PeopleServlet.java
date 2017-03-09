@@ -44,6 +44,7 @@ public class PeopleServlet extends HttpServlet {
         String fname = request.getParameter("fnm");
         String minit = request.getParameter("mi");
         String lname = request.getParameter("lnm");
+        String username = "";
         
         if(subm == null){ subm = ""; }
         if(dbtn == null){ dbtn = ""; }
@@ -86,7 +87,8 @@ public class PeopleServlet extends HttpServlet {
             persond.updatePeople(fname, minit, lname, lname, cmd, ippl_num);
             msg += persond.getMsg();
         } else if (cmd.equalsIgnoreCase("INSERT")) {
-            persond.addPerson(ippl_num, fname, minit, lname, lname, cmd);
+            //username = fname.substring(0) + lname;
+            persond.addPerson(ippl_num, fname, minit, lname, username, cmd);
             msg += persond.getMsg();
         } else if (cmd.equalsIgnoreCase("DELETE")) {
             persond.deletePerson(ippl_num, fname, lname);

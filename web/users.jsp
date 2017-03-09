@@ -155,6 +155,10 @@
                 </div>
             </div>
         </form>
+        
+        <h4 class="msgctr" id="btnmsg">${msg} ${btnmsg}</h4><br>
+        <p class="msgctr">${cntmsg}</p>
+        
         <div id="nav">
             <a class="button"  href="page1.jsp">Home</a>
             <a class="button"  href="logon.jsp">Logon</a>
@@ -165,7 +169,5 @@
             <a class="button"  href="Chores">Chores</a>
             <a class="button"  href="People">IICI Database Users</a>
         </div>
-        <h4 class="msgctr" id="btnmsg">${msg} ${btnmsg}</h4><br>
-        <p class="msgctr">${cntmsg}</p>
     </body>
 </html>

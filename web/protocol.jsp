@@ -126,7 +126,7 @@
         var filetext = [];
         var filename = [];
                 <c:forEach var="p" items="${prot}">
-                    filetext[${p.protID}] = '${p.protData}';
+                    filetext[${p.protID}] = '${p.safeProtData}';
                     filename[${p.protID}] = '${p.protName}';
                 </c:forEach>
         window.onload = init;

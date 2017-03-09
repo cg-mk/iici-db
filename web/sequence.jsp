@@ -102,7 +102,7 @@
     .clrfix{clear:both;}
     a.button{
     display: block;
-    width: 175px;
+    width: 10%;
     height: 20px;
     margin: 10px 2px;
     text-align: center;
@@ -145,7 +145,7 @@ a#hdnFile:active{color:#fff;}
         var filetext = [];
         var filename = [];
                 <c:forEach var="s" items="${seq}">
-                    filetext[${s.seqID}] = '${s.seqData}';
+                    filetext[${s.seqID}] = '${s.safeSeqData}';
                     filename[${s.seqID}] = '${s.seqName}';
                 </c:forEach>
         
